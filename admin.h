@@ -143,16 +143,38 @@ void  Admin ::  authentication()//to take user name & password,verifying then op
 void Admin:: SHOW_STUDENT(){
     fstream file;
     cout << "\t\t\t----|    These are are Student   |----" << endl;
- 
+
     file.open("student.txt", ios :: in);
- 
+
     while(file >> student_name)
     {
         file >> student_ID;
- 
+
         cout << "Student name : " << student_name << endl;
         cout << "Student ID   : " << student_ID << endl;
         cout << endl;
+    }
+    file.close();
+}
+void Admin :: DISPLAY_BOOK(){
+    fstream file;
+    int book_no;
+
+    cout << "\t\t\t--| These are the Book available at that moment |--";
+    cout << "\n";
+
+    file.open("book.txt", ios :: in);
+    while(file >> book_code)
+    {
+        file >> book_name;
+        file >> subject_name;
+        file >> writter_name;
+
+        cout << "Book ID: " << book_code << endl;
+        cout << "Book Name: " << book_name << endl;
+        cout << "Subject Name: " << subject_name << endl;
+        cout << "Writer Name: " << writter_name << endl;
+        cout << "\n";
     }
     file.close();
 }
