@@ -1,3 +1,16 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+class bookdata{
+    public:
+        string book_code,book_name, subject_name, writter_name;
+};
+
+
+
+
 class Admin{
     private:
         string admin_name,admin_pass,book_name, book_code, subject_name, writter_name,student_name,student_ID;
@@ -127,3 +140,19 @@ void  Admin ::  authentication()//to take user name & password,verifying then op
 
         }
     }
+void Admin:: SHOW_STUDENT(){
+    fstream file;
+    cout << "\t\t\t----|    These are are Student   |----" << endl;
+ 
+    file.open("student.txt", ios :: in);
+ 
+    while(file >> student_name)
+    {
+        file >> student_ID;
+ 
+        cout << "Student name : " << student_name << endl;
+        cout << "Student ID   : " << student_ID << endl;
+        cout << endl;
+    }
+    file.close();
+}
