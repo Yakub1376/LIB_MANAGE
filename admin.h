@@ -2,24 +2,20 @@
 
 using namespace std;
 
-
 class bookdata{
     public:
         string book_code,book_name, subject_name, writter_name;
 };
 
-
-
-
 class Admin{
     private:
         string admin_name,admin_pass,book_name, book_code, subject_name, writter_name,student_name,student_ID;
     public:
-        void ADMIN_PANEL();     //AUTHENTICATION LEFT
-        void SHOW_STUDENT();    //DONE
-        void ADD_BOOK();        //DONE
-        void DELETE_BOOK();     //WORKING.....
-        void SEARCH_BOOK();     //Having some problem
+        void ADMIN_PANEL();    
+        void SHOW_STUDENT(); 
+        void ADD_BOOK();       
+        void DELETE_BOOK();    
+        void SEARCH_BOOK();     
         void DISPLAY_BOOK();
         void authentication();
 };
@@ -140,7 +136,9 @@ void  Admin ::  authentication()//to take user name & password,verifying then op
 
         }
     }
-void Admin:: SHOW_STUDENT(){
+
+void Admin:: SHOW_STUDENT()
+{
     fstream file;
     cout << "\t\t\t----|    These are are Student   |----" << endl;
 
@@ -156,6 +154,7 @@ void Admin:: SHOW_STUDENT(){
     }
     file.close();
 }
+
 void Admin :: DISPLAY_BOOK(){
     fstream file;
     int book_no;
@@ -177,4 +176,69 @@ void Admin :: DISPLAY_BOOK(){
         cout << "\n";
     }
     file.close();
+}
+
+void Admin:: ADD_BOOK(){
+    fstream file;
+    cout << "\t\t\t---| To Add Book |---";
+    cout << "\n";
+
+    cout << "Enter The Book Code : ";
+    cin >> book_code;       //new book code
+
+    cout << "Enter The Book Name : ";
+    cin >> book_name;       //new book name
+
+    cout << "Enter The Subject Name : ";
+    cin >> subject_name;        //new subject name
+
+    cout << "Enter The writter Name : ";
+    cin >> writter_name;        //new writter name
+
+    file.open("book.txt", ios :: app | ios :: out);         //to show the new book details
+    file << book_code << endl;
+    file << book_name << endl;
+    file << subject_name << endl;
+    file << writter_name << endl;
+    file.close();
+}
+
+void Admin :: DELETE_BOOK(){
+    cout << "\t\t\t This function is Under construction " << endl;
+    string book_no;
+    fstream file;
+    vector<bookdata> book_details;
+    cout << "\t\t\t ---| TO DELETE BOOKS |--- " << endl;
+    file.open("book.txt", ios :: in);
+
+    while(file >> book_code)
+    {
+        file >> book_name;
+        file >> subject_name;
+        file >> writter_name;
+
+        bookdata temp_book_data;
+        temp_book_data.book_code = book_code;
+        temp_book_data.book_name = book_name;
+        temp_book_data.subject_name = subject_name;
+        temp_book_data.writter_name = writter_name;
+        book_details.push_back(temp_book_data);
+    }
+    file.close();
+    cout << "\t\t\t please enter the book code which you want to delete " << endl;
+    cin >> book_no;
+    
+    fstream file2;
+    file2.open("book.txt", ios :: out);
+    for(int i = 0; i < book_details.size(); i++)
+    {
+        if(book_no != book_details[i].book_code)
+        {
+            file2 << book_details[i].book_code<<endl;
+            file2 << book_details[i].book_name<<endl;
+            file2 << book_details[i].subject_name<<endl;
+            file2 << book_details[i].writter_name<<endl;
+        }
+    }
+    file2.close();
 }
