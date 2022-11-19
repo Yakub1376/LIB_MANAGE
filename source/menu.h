@@ -37,9 +37,9 @@ void menu()
             break;
 
         default:
+            cout << "Invalid Input" << endl;
             cout << "please choose between 1 or 2" << endl;
-            goto menustart;
-            //break;       
+            goto menustart;       
     }
 }
 

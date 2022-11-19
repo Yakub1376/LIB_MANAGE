@@ -50,34 +50,38 @@ void Admin:: ADMIN_PANEL()
         {
             case 1:
             {
-                char a;
+                string s;
                 ADD_BOOK();
                 cout << "Press any key character to continue to admin menu" << endl;
-                cin >> a;
+                getline(cin,s);
+                cin.ignore();
                 goto here;
             }
             case 2:
             {
-                char a;
+                string s;
                 DELETE_BOOK();
                 cout << "Press any key character to continue to admin menu" << endl;
-                cin >> a;
+                getline(cin,s);
+                cin.ignore();
                 goto here;
             }
             case 3:
             {
-                char a;
+                string s;
                 DISPLAY_BOOK();
                 cout << "Press any key character to continue to admin menu" << endl;
-                cin >> a;
+                getline(cin,s);
+                cin.ignore();
                 goto here;
             }
             case 4:
             {
-                char a;
+                string s;
                 SHOW_STUDENT();
                 cout << "Press any key character to continue to admin menu" << endl;
-                cin >> a;
+                getline(cin,s);
+                cin.ignore();
                 goto here;
             }
             case 5:
@@ -86,7 +90,7 @@ void Admin:: ADMIN_PANEL()
             {
                 cout << "you have enter the wrong code please choose between 1 to 5" << endl;
                 goto here;
-                break;
+                //break;
             }
         }
 
@@ -100,7 +104,7 @@ void  Admin ::  authentication()//to take user name & password,verifying then op
         cout<< "Enter Username: ";
         cin>> username;
         cout<<"Enter Password: ";
-        cin>> pass;
+        cin>>pass;
 
         ifstream open("admin.txt");
         string name,passw;
@@ -187,7 +191,8 @@ void Admin:: ADD_BOOK(){
     cin >> book_code;       //new book code
 
     cout << "Enter The Book Name : ";
-    cin >> book_name;       //new book name
+    getline(cin,book_name);
+    cin.ignore();      //new book name
 
     cout << "Enter The Subject Name : ";
     cin >> subject_name;        //new subject name
@@ -203,8 +208,9 @@ void Admin:: ADD_BOOK(){
     file.close();
 }
 
-void Admin :: DELETE_BOOK(){
-    cout << "\t\t\t This function is Under construction " << endl;
+void Admin :: DELETE_BOOK()
+{
+    
     string book_no;
     fstream file;
     vector<bookdata> book_details;
