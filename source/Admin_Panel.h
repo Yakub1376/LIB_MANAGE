@@ -4,6 +4,7 @@ using namespace std;
 
 class bookdata{
     public:
+
         string book_code,book_name, subject_name, writter_name;
 };
 
@@ -11,11 +12,11 @@ class Admin{
     private:
         string admin_name,admin_pass,book_name, book_code, subject_name, writter_name,student_name,student_ID;
     public:
-        void ADMIN_PANEL();    
-        void SHOW_STUDENT(); 
-        void ADD_BOOK();       
-        void DELETE_BOOK();    
-        void SEARCH_BOOK();     
+        void ADMIN_PANEL();
+        void SHOW_STUDENT();
+        void ADD_BOOK();
+        void DELETE_BOOK();
+        void SEARCH_BOOK();
         void DISPLAY_BOOK();
         void authentication();
 };
@@ -53,7 +54,7 @@ void Admin:: ADMIN_PANEL()
                 string s;
                 ADD_BOOK();
                 cout << "Press any key character to continue to admin menu" << endl;
-                getline(cin,s);
+                cin>>s;
                 cin.ignore();
                 goto here;
             }
@@ -62,7 +63,7 @@ void Admin:: ADMIN_PANEL()
                 string s;
                 DELETE_BOOK();
                 cout << "Press any key character to continue to admin menu" << endl;
-                getline(cin,s);
+                cin>>s;
                 cin.ignore();
                 goto here;
             }
@@ -71,7 +72,7 @@ void Admin:: ADMIN_PANEL()
                 string s;
                 DISPLAY_BOOK();
                 cout << "Press any key character to continue to admin menu" << endl;
-                getline(cin,s);
+               cin>>s;
                 cin.ignore();
                 goto here;
             }
@@ -80,7 +81,7 @@ void Admin:: ADMIN_PANEL()
                 string s;
                 SHOW_STUDENT();
                 cout << "Press any key character to continue to admin menu" << endl;
-                getline(cin,s);
+                cin>>s;
                 cin.ignore();
                 goto here;
             }
@@ -88,7 +89,7 @@ void Admin:: ADMIN_PANEL()
                 break;
             default:
             {
-                cout << "you have enter the wrong code please choose between 1 to 5" << endl;
+                cout <<endl<<endl<< "\t\tyou have enter the wrong code please choose between 1 to 5" << endl;
                 goto here;
                 //break;
             }
@@ -103,8 +104,9 @@ void  Admin ::  authentication()//to take user name & password,verifying then op
         Here:
         cout<< "Enter Username: ";
         cin>> username;
+        cin.ignore();
         cout<<"Enter Password: ";
-        cin>>pass;
+       getline(cin,pass);
 
         ifstream open("admin.txt");
         string name,passw;
@@ -128,7 +130,7 @@ void  Admin ::  authentication()//to take user name & password,verifying then op
                 }
                 f-=1;
                 cout<<"You Have "<< f <<" Attempts Left!"<<endl<<endl;
-                cin.ignore();
+               // cin.ignore();
                 if(f==0)
                 {
                     cout<< "Authentication Failed! Please Run The Program Again!"<<endl;
@@ -148,9 +150,9 @@ void Admin:: SHOW_STUDENT()
 
     file.open("student.txt", ios :: in);
 
-    while(file >> student_name)
+    while(getline(file,student_name))
     {
-        file >> student_ID;
+        getline(file,student_ID);
 
         cout << "Student name : " << student_name << endl;
         cout << "Student ID   : " << student_ID << endl;
@@ -168,10 +170,10 @@ void Admin :: DISPLAY_BOOK(){
 
     file.open("book.txt", ios :: in);
     while(file >> book_code)
-    {
-        file >> book_name;
-        file >> subject_name;
-        file >> writter_name;
+    {   file.ignore();
+        getline(file,book_name);
+        getline(file,subject_name);
+        getline(file,writter_name);
 
         cout << "Book ID: " << book_code << endl;
         cout << "Book Name: " << book_name << endl;
@@ -186,19 +188,17 @@ void Admin:: ADD_BOOK(){
     fstream file;
     cout << "\t\t\t---| To Add Book |---";
     cout << "\n";
-
     cout << "Enter The Book Code : ";
     cin >> book_code;       //new book code
-
+    cin.ignore();
     cout << "Enter The Book Name : ";
     getline(cin,book_name);
-    cin.ignore();      //new book name
-
+         //new book name
     cout << "Enter The Subject Name : ";
-    cin >> subject_name;        //new subject name
+    getline(cin,subject_name);        //new subject name
 
     cout << "Enter The writter Name : ";
-    cin >> writter_name;        //new writter name
+    getline(cin,writter_name);        //new writter name
 
     file.open("book.txt", ios :: app | ios :: out);         //to show the new book details
     file << book_code << endl;
@@ -210,18 +210,18 @@ void Admin:: ADD_BOOK(){
 
 void Admin :: DELETE_BOOK()
 {
-    
-    string book_no;
+
+    string  book_no;
     fstream file;
     vector<bookdata> book_details;
     cout << "\t\t\t ---| TO DELETE BOOKS |--- " << endl;
     file.open("book.txt", ios :: in);
 
     while(file >> book_code)
-    {
-        file >> book_name;
-        file >> subject_name;
-        file >> writter_name;
+    {   file.ignore();
+        getline(file,book_name);
+        getline(file,subject_name);
+        getline(file,writter_name);
 
         bookdata temp_book_data;
         temp_book_data.book_code = book_code;
@@ -233,7 +233,7 @@ void Admin :: DELETE_BOOK()
     file.close();
     cout << "\t\t\t please enter the book code which you want to delete " << endl;
     cin >> book_no;
-    
+
     fstream file2;
     file2.open("book.txt", ios :: out);
     for(int i = 0; i < book_details.size(); i++)
