@@ -19,8 +19,95 @@ class Admin{
         void SEARCH_BOOK();
         void DISPLAY_BOOK();
         void authentication();
+	void UPDATE_BOOK();
+	void BORROWED_BOOK();
 };
-
+void Admin :: UPDATE_BOOK()
+{
+    fstream file;
+    cout << "\t\t\t ---| TO UPDATE BOOKS |--- " << endl;
+    string book_code,tempbook_code,tempbook_name,tempsubject_name,tempauthor_name,tempbook_no;
+    vector<bookdata>bdata;
+ 
+    file.open("book.txt", ios :: in);
+    while(getline(file,book_code, '\n'))
+    {
+        file >> book_name;
+        file >> subject_name;
+        file >> Author_name;
+        file >> qauntity;
+        file.ignore();
+ 
+        bookdata tempbook;
+        tempbook.book_code = book_code;
+        tempbook.book_name = book_name;
+        tempbook.subject_name = subject_name;
+        tempbook.Author_name = Author_name;
+        tempbook.quantity = qauntity;
+        bdata.push_back(tempbook);
+    }
+    file.close();
+    string b_no;
+ 
+    file.open("book.txt", ios :: out);
+    for(int i = 0; i < bdata.size(); i++)
+    {
+        if(b_no == bdata[i].book_code)
+        {
+            cout << "ENTER BOOK CODE : ";
+            cin >> tempbook_code;
+            cout << "\n";
+ 
+            cout << "ENTER BOOK NAME : ";
+            cin >> tempbook_name;
+            cout << "\n";
+ 
+            cout << "ENTER SUBJECT NAME : ";
+            cin >> tempsubject_name;
+            cout << "\n";
+ 
+            cout << "ENTER AUTHOR NAME : ";
+            cin >> tempauthor_name;
+            cout << "\n";
+ 
+            cout << "ENTER BOOK AVAILABLE : ";
+            cin >> tempbook_no;
+            cout << "\n";
+        }
+ 
+        file << bdata[i].book_code << endl;
+        file << bdata[i].book_name << endl;
+        file << bdata[i].subject_name << endl;
+        file << bdata[i].Author_name << endl;
+        file << bdata[i].quantity << endl;
+    }
+    file.close();
+}
+ 
+void Admin :: BORROWED_BOOK()
+{
+    cout << "\t\tThose are the book borrowed by the Student";
+    cout << "\n";
+ 
+    fstream file;
+    file.open("borrowed.txt", ios :: in);
+    while(file >> student_ID)
+    {
+        file >> book_code;
+        file >> book_name;
+        file >> subject_name;
+        file >> Author_name;
+ 
+        cout << "\t\tSTUDENT ID : " << student_ID;
+        cout << "\n";
+        cout << "\t\tBOOK CODE : " << book_code;
+        cout << "\t\tBOOK NAME : " << book_name;
+        cout << "\t\tSUBJECT NAME : " << subject_name;
+        cout << "\t\tAUTHOR NAME : " << Author_name;
+        cout << "\n";
+    }
+    file.close();
+}
 void Admin:: ADMIN_PANEL()
 {
     fstream file;
